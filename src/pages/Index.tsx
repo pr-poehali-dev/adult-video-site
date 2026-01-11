@@ -47,7 +47,7 @@ export default function Index() {
                 <Icon name="Play" size={24} className="text-white" />
               </div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                VideoHub
+                NewPorno
               </h1>
             </div>
 
