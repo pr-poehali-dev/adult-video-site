@@ -60,6 +60,14 @@ export default function Index() {
                 <Icon name="Grid3x3" size={18} />
                 Каталог
               </Button>
+              <Button variant={activeTab === 'categories' ? 'default' : 'ghost'} onClick={() => setActiveTab('categories')} className="gap-2">
+                <Icon name="FolderOpen" size={18} />
+                Категории
+              </Button>
+              <Button variant={activeTab === 'tags' ? 'default' : 'ghost'} onClick={() => setActiveTab('tags')} className="gap-2">
+                <Icon name="Tags" size={18} />
+                Теги
+              </Button>
               <Button variant={activeTab === 'premium' ? 'default' : 'ghost'} onClick={() => setActiveTab('premium')} className="gap-2">
                 <Icon name="Crown" size={18} />
                 Премиум
@@ -320,6 +328,94 @@ export default function Index() {
           </div>
         )}
 
+        {activeTab === 'categories' && (
+          <div className="space-y-6 animate-fade-in">
+            <h2 className="text-3xl font-bold">Категории</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {[
+                { name: 'Любительское', icon: 'Video', count: '2.5K', color: 'from-pink-500 to-rose-500' },
+                { name: 'Профессиональное', icon: 'Star', count: '1.8K', color: 'from-purple-500 to-indigo-500' },
+                { name: 'HD качество', icon: 'Sparkles', count: '3.2K', color: 'from-blue-500 to-cyan-500' },
+                { name: 'Популярное', icon: 'TrendingUp', count: '4.1K', color: 'from-orange-500 to-amber-500' },
+                { name: 'Новинки', icon: 'Zap', count: '1.5K', color: 'from-green-500 to-emerald-500' },
+                { name: 'Топ рейтинг', icon: 'Award', count: '980', color: 'from-yellow-500 to-orange-500' },
+                { name: 'VIP контент', icon: 'Crown', count: '650', color: 'from-violet-500 to-purple-500' },
+                { name: 'Эксклюзив', icon: 'Lock', count: '420', color: 'from-red-500 to-pink-500' },
+              ].map((category) => (
+                <Card key={category.name} className="group cursor-pointer overflow-hidden border-2 hover:border-primary transition-all">
+                  <div className={`h-32 bg-gradient-to-br ${category.color} flex items-center justify-center relative overflow-hidden`}>
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+                    <Icon name={category.icon as any} size={48} className="text-white relative z-10 group-hover:scale-110 transition-transform" />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-semibold text-lg mb-1">{category.name}</h3>
+                    <p className="text-sm text-muted-foreground">{category.count} видео</p>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'tags' && (
+          <div className="space-y-6 animate-fade-in">
+            <div className="flex items-center justify-between">
+              <h2 className="text-3xl font-bold">Популярные теги</h2>
+              <Button variant="outline" className="gap-2">
+                <Icon name="SortDesc" size={18} />
+                По популярности
+              </Button>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {[
+                { name: 'HD', count: '12.5K' },
+                { name: '4K', count: '8.2K' },
+                { name: 'Горячее', count: '15.3K' },
+                { name: 'Новое', count: '9.7K' },
+                { name: 'Топ', count: '11.2K' },
+                { name: 'Популярное', count: '14.8K' },
+                { name: 'Эксклюзив', count: '3.5K' },
+                { name: 'Premium', count: '5.1K' },
+                { name: 'Любительское', count: '18.9K' },
+                { name: 'Профи', count: '7.4K' },
+                { name: 'Красотки', count: '13.6K' },
+                { name: 'Жесткое', count: '6.8K' },
+                { name: 'Нежное', count: '8.9K' },
+                { name: 'Групповое', count: '5.7K' },
+                { name: 'Соло', count: '10.3K' },
+                { name: 'Пары', count: '12.1K' },
+                { name: 'Тройка', count: '4.2K' },
+                { name: 'Оргия', count: '2.8K' },
+                { name: 'Молодые', count: '16.4K' },
+                { name: 'MILF', count: '11.9K' },
+                { name: 'Азиатки', count: '9.5K' },
+                { name: 'Блондинки', count: '14.2K' },
+                { name: 'Брюнетки', count: '13.7K' },
+                { name: 'Рыжие', count: '6.3K' },
+              ].map((tag) => (
+                <Badge 
+                  key={tag.name} 
+                  variant="outline" 
+                  className="px-4 py-2 text-base cursor-pointer hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
+                >
+                  {tag.name}
+                  <span className="ml-2 text-xs text-muted-foreground">{tag.count}</span>
+                </Badge>
+              ))}
+            </div>
+            <Card className="p-6 bg-muted/50">
+              <h3 className="text-xl font-semibold mb-4">Искать по тегам</h3>
+              <div className="flex gap-3">
+                <Input placeholder="Введите теги через запятую..." className="flex-1" />
+                <Button className="gap-2">
+                  <Icon name="Search" size={18} />
+                  Найти
+                </Button>
+              </div>
+            </Card>
+          </div>
+        )}
+
         {activeTab === 'favorites' && (
           <div className="space-y-6 animate-fade-in">
             <h2 className="text-3xl font-bold">Избранное</h2>
@@ -359,21 +455,25 @@ export default function Index() {
       </main>
 
       <nav className="md:hidden fixed bottom-0 left-0 right-0 border-t border-border bg-background/95 backdrop-blur">
-        <div className="flex justify-around p-2">
+        <div className="grid grid-cols-5 p-2">
           <Button variant={activeTab === 'home' ? 'default' : 'ghost'} onClick={() => setActiveTab('home')} size="icon" className="flex-col h-auto py-2 gap-1">
-            <Icon name="Home" size={20} />
+            <Icon name="Home" size={18} />
             <span className="text-xs">Главная</span>
           </Button>
-          <Button variant={activeTab === 'catalog' ? 'default' : 'ghost'} onClick={() => setActiveTab('catalog')} size="icon" className="flex-col h-auto py-2 gap-1">
-            <Icon name="Grid3x3" size={20} />
-            <span className="text-xs">Каталог</span>
+          <Button variant={activeTab === 'categories' ? 'default' : 'ghost'} onClick={() => setActiveTab('categories')} size="icon" className="flex-col h-auto py-2 gap-1">
+            <Icon name="FolderOpen" size={18} />
+            <span className="text-xs">Категории</span>
+          </Button>
+          <Button variant={activeTab === 'tags' ? 'default' : 'ghost'} onClick={() => setActiveTab('tags')} size="icon" className="flex-col h-auto py-2 gap-1">
+            <Icon name="Tags" size={18} />
+            <span className="text-xs">Теги</span>
           </Button>
           <Button variant={activeTab === 'premium' ? 'default' : 'ghost'} onClick={() => setActiveTab('premium')} size="icon" className="flex-col h-auto py-2 gap-1">
-            <Icon name="Crown" size={20} />
+            <Icon name="Crown" size={18} />
             <span className="text-xs">Премиум</span>
           </Button>
           <Button variant={activeTab === 'favorites' ? 'default' : 'ghost'} onClick={() => setActiveTab('favorites')} size="icon" className="flex-col h-auto py-2 gap-1">
-            <Icon name="Heart" size={20} />
+            <Icon name="Heart" size={18} />
             <span className="text-xs">Избранное</span>
           </Button>
         </div>
